@@ -95,7 +95,7 @@ func NewOauthProxy(opts *Options, validator func(string) bool) *OauthProxy {
 		} else {
 			setProxyDirector(proxy)
 		}
-		serveMux.Handle(path, &UpstreamProxy{u.Host, proxy})
+                serveMux.Handle(path, NewWebsocketReverseProxy(u))
 	}
 	for _, u := range opts.CompiledRegex {
 		log.Printf("compiled skip-auth-regex => %q", u)
